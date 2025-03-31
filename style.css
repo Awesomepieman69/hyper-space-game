@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #0a1922;
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-canvas {
+    background-color: #0a1922;
+    border: 2px solid #00ffaa;
+    box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+}
+
+#ui-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#score-display {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #00ffaa;
+    font-size: 24px;
+    text-shadow: 0 0 5px rgba(0, 255, 170, 0.5);
+}
+
+#stage-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ffaa;
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 255, 170, 0.7);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #00ffaa;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(0, 255, 170, 0.8);
+}
+
+#game-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#game-over h1 {
+    color: #ff5555;
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 85, 85, 0.5);
+}
+
+#final-score {
+    color: #00ffaa;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.retry-button {
+    padding: 12px 24px;
+    background-color: #00b37d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+    pointer-events: all;
+}
+
+.retry-button:hover {
+    background-color: #00ffaa;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
+}
+
+@keyframes jumpEffect {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+    #game-canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    #stage-display {
+        font-size: 36px;
+    }
+
+    #game-over h1 {
+        font-size: 36px;
+    }
+}
+
+/* --- Start Screen Styles --- */
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a1922; /* Match game background */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20; /* Ensure it's above the game canvas/UI */
+    color: #00ffaa; /* Default neon color */
+}
+
+#start-screen h1 {
+    font-size: 64px; /* Larger title */
+    margin-bottom: 40px;
+    text-shadow: 0 0 5px #00ffaa, 0 0 10px #00ffaa, 0 0 20px #00ffaa; /* Neon glow */
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.start-button { /* Can reuse retry-button styles or customize */
+    padding: 15px 30px;
+    background-color: #00b37d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    pointer-events: all; /* Make sure it's clickable */
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+}
+
+.start-button:hover {
+    background-color: #00ffaa;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 170, 0.7);
+}
