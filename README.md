@@ -21,4 +21,4 @@ A fast-paced platformer game with procedurally generated obstacles, particle eff
 ## Play Online
 
 Simply open the index.html file in a web browser to play.
-https://awesomepieman69.github.io/hyper-space-game
+
