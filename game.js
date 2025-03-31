@@ -241,3 +241,114 @@ function generateObstaclesForStage(params, stageLength) {
     }
     return generatedObstacles;
 }
+
+// Initialize Game
+function init() {
+    canvas = document.getElementById('game-canvas');
+    ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Event listeners
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('touchstart', handleClick);
+    
+    // Retry button
+    document.getElementById('retry-btn').addEventListener('click', startGame);
+    
+    // Start button
+    document.getElementById('start-btn').addEventListener('click', () => {
+        document.getElementById('start-screen').style.display = 'none'; // Hide start screen
+        startGame(); // Start the actual game
+    });
+    
+    // Ensure start screen is visible initially
+    document.getElementById('start-screen').style.display = 'flex';
+    // Ensure game over is hidden
+    document.getElementById('game-over').style.display = 'none';
+    // Ensure UI container elements are ready but maybe hidden or not updated yet
+    document.getElementById('score-display').textContent = 'Score: 0';
+    document.getElementById('stage-display').style.opacity = 0; // Hide stage text initially
+}
+
+function resizeCanvas() {
+    const container = document.getElementById('game-container');
+    const ratio = CANVAS_WIDTH / CANVAS_HEIGHT;
+    let width = container.clientWidth;
+    let height = width / ratio;
+    
+    if (height > window.innerHeight) {
+        height = window.innerHeight;
+        width = height * ratio;
+    }
+    
+    canvas.width = CANVAS_WIDTH;
+    canvas.height = CANVAS_HEIGHT;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+}
+
+function startGame() {
+    // --- Hide start screen if it's somehow still visible ---
+    document.getElementById('start-screen').style.display = 'none';
+
+    // Reset game state
+    gameRunning = true;
+    score = 0;
+    currentStage = 1;
+    scrollX = 0;
+    isJumping = false;
+    obstacles = [];
+    
+    // Update UI
+    document.getElementById('score-display').textContent = `Score: ${score}`;
+    document.getElementById('game-over').style.display = 'none';
+    
+    // Create player
+    player = {
+        x: 100,
+        y: CANVAS_HEIGHT - PLAYER_SIZE - 10,
+        size: PLAYER_SIZE,
+        velocityY: 0,
+        rotation: 0,
+        jumpsLeft: 2
+    };
+    
+    // Load current stage
+    loadStage(currentStage - 1);
+    
+    // Show stage text
+    showStageText = true;
+    document.getElementById('stage-display').textContent = `Stage ${currentStage}`;
+    document.getElementById('stage-display').style.opacity = 1;
+    
+    // Fade out stage text after a delay
+    setTimeout(() => {
+        if (showStageText && gameRunning) { // Check gameRunning in case player dies instantly
+            document.getElementById('stage-display').style.opacity = 0;
+            showStageText = false; // Set flag here to prevent re-triggering in gameLoop
+        }
+    }, 1500); // Fade out after 1.5 seconds
+    
+    // Start game loop
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+    }
+    gameLoop();
+}
+
+function loadStage(stageIndex) {
+    const stage = stages[stageIndex];
+    gameSpeed = stage.speed;
+    obstacles = []; // Clear existing obstacles - uncomment this
+
+    // --- Generate obstacles using the new function ---
+    obstacles = generateObstaclesForStage(stage.params, stage.length);
+}
+
+// Start the game
+window.addEventListener('load', init);
