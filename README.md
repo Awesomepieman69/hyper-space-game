@@ -28,9 +28,6 @@ Play online: [https://awesomepieman69.github.io/hyper-space-game/](https://aweso
 
 Simply clone this repository and open the index.html file in a web browser to play locally.
 
-## Game Screenshots
-
-![Game Screenshot](https://placehold.co/600x400/1a3a4a/00ffaa?text=Hyper+SPACE&font=montserrat)
 
 ## Development
 
