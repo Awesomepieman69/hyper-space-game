@@ -2,6 +2,12 @@
 
 A fast-paced platformer game with procedurally generated obstacles, particle effects, and multiple stages.
 
+## Live Demo
+
+Play online: [https://awesomepieman69.github.io/hyper-space-game/](https://awesomepieman69.github.io/hyper-space-game/)
+
+(To activate the live demo, follow instructions in the PAGES.md file)
+
 ## How to Play
 
 1. Click the "Start Game" button on the main screen
@@ -18,7 +24,20 @@ A fast-paced platformer game with procedurally generated obstacles, particle eff
 - Neon visual style with particle effects
 - Responsive design for various screen sizes
 
-## Play Online
+## Play Locally
 
-Simply open the index.html file in a web browser to play.
+Simply clone this repository and open the index.html file in a web browser to play locally.
 
+## Game Screenshots
+
+![Game Screenshot](https://placehold.co/600x400/1a3a4a/00ffaa?text=Hyper+SPACE&font=montserrat)
+
+## Development
+
+The game is built with vanilla JavaScript, HTML5 and CSS, utilizing the Canvas API for rendering and game mechanics. It's designed with a modular structure:
+
+- `index.html` - Main HTML structure
+- `style.css` - All game styling and animations
+- `game.js` - Core game variables, stage data, and initialization
+- `game-mechanics.js` - Game loop and rendering functions
+- `game-physics.js` - Collision detection and game state management
